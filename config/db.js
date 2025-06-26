@@ -6,7 +6,7 @@ const pgp = pgpInit();
 
 
 const db = pgp({
-    host: 'localhost',
+    host: process.env.DB_HOST,
     port: 5432, //default postgresSQL port
     database: process.env.DB_NAME,
     user: process.env.DB_USER,
