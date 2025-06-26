@@ -11,7 +11,7 @@ exports.getDashboard =( req, res) =>{
 exports.getAllFoods = async ( req, res) =>{
     try{
         const foods = await db.any('SELECT * FROM food_items ORDER BY created_at DESC')
-        res.render('user/Food', {foods})
+        res.render('user/food', {foods})
     } catch (error) {
         console.error('Error Fetching food items:', error)
         res.status(500).send('Server Error')
