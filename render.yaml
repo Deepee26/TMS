@@ -1,5 +1,4 @@
 services:
-  # A Node.js web service
   - type: web
     name: task-management-system
     env: node
@@ -15,28 +14,8 @@ services:
         generateValue: true
       - key: JWT_SECRET
         generateValue: true
-      - key: DB_HOST
-        fromDatabase:
-          name: task-management-db
-          property: host
-      - key: DB_NAME
-        fromDatabase:
-          name: task-management-db
-          property: database
-      - key: DB_USER
-        fromDatabase:
-          name: task-management-db
-          property: user
-      - key: DB_PASS
-        fromDatabase:
-          name: task-management-db
-          property: password
       - key: BASE_URL
         value: https://task-management-system.onrender.com
-      - key: EMAIL_USER
-        value: your-email@gmail.com
-      - key: EMAIL_PASS
-        value: your-app-password
 
 databases:
   - name: task-management-db
