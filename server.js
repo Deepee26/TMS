@@ -50,12 +50,30 @@ app.get('/', (req, res) => {
 // Create database tables
 const initializeDatabase = async () => {
     try {
+        console.log('Starting database initialization...');
+        console.log('Environment variables:');
+        console.log('DB_HOST:', process.env.DB_HOST);
+        console.log('DB_NAME:', process.env.DB_NAME);
+        console.log('DB_USER:', process.env.DB_USER);
+        console.log('DB_PASS:', process.env.DB_PASS ? '[SET]' : '[NOT SET]');
+        
+        console.log('Creating user table...');
         await createUserTable();
+        console.log('User table created successfully');
+        
+        console.log('Creating task table...');
         await createTaskTable();
+        console.log('Task table created successfully');
+        
+        console.log('Creating task-related tables...');
         await createTaskTables();
+        console.log('Task-related tables created successfully');
+        
         console.log('Database initialized successfully');
     } catch (error) {
         console.error('Error initializing database:', error);
+        console.error('Error stack:', error.stack);
+        throw error; // Re-throw to prevent server from starting with DB errors
     }
 };
 
@@ -65,4 +83,7 @@ initializeDatabase().then(() => {
         console.log(`Task Management System is running on http://localhost:${PORT}`);
         console.log(`Admin login: sdendup2017@gmail.com / admin123`);
     });
+}).catch((error) => {
+    console.error('Failed to start server due to database initialization error:', error);
+    process.exit(1);
 });
