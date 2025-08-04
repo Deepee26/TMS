@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Task - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/tasks">
+                                <i class="fas fa-tasks"></i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/dashboard">
+                                <i class="fas fa-chart-bar"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/users">
+                                <i class="fas fa-users"></i> Users
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Add New Task</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <a href="/admin/tasks" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Tasks
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-plus-circle"></i> Create New Task
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="/admin/tasks/add" method="POST" id="addTaskForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="title" class="form-label">Task Title *</label>
+                                            <input type="text" class="form-control" id="title" name="title" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="assigned_to" class="form-label">Assign To *</label>
+                                            <select class="form-select" id="assigned_to" name="assigned_to" required>
+                                                <option value="">Select User</option>
+                                                <% users.forEach(user => { %>
+                                                <option value="<%= user.id %>">
+                                                    <%= user.first_name %> <%= user.last_name %> (<%= user.email %>)
+                                                </option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="due_date" class="form-label">Due Date *</label>
+                                            <input type="date" class="form-control" id="due_date" name="due_date" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="priority" class="form-label">Priority *</label>
+                                            <select class="form-select" id="priority" name="priority" required>
+                                                <option value="">Select Priority</option>
+                                                <option value="low">Low</option>
+                                                <option value="medium">Medium</option>
+                                                <option value="high">High</option>
+                                                <option value="urgent">Urgent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description *</label>
+                                        <textarea class="form-control" id="description" name="description" rows="5" required 
+                                                  placeholder="Enter detailed description of the task..."></textarea>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-secondary" onclick="history.back()">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save"></i> Create Task
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h6 class="card-title mb-0">
+                                    <i class="fas fa-info-circle"></i> Task Guidelines
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-check text-success"></i>
+                                        <strong>Title:</strong> Keep it concise and descriptive
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check text-success"></i>
+                                        <strong>Description:</strong> Provide clear, detailed instructions
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check text-success"></i>
+                                        <strong>Due Date:</strong> Set realistic deadlines
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check text-success"></i>
+                                        <strong>Priority:</strong> Choose appropriate urgency level
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check text-success"></i>
+                                        <strong>Assignment:</strong> Select the most suitable team member
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card shadow mt-3">
+                            <div class="card-header">
+                                <h6 class="card-title mb-0">
+                                    <i class="fas fa-lightbulb"></i> Quick Tips
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <small>
+                                        <strong>Priority Levels:</strong><br>
+                                        • <strong>Low:</strong> Non-urgent, can be done when convenient<br>
+                                        • <strong>Medium:</strong> Standard priority, normal timeline<br>
+                                        • <strong>High:</strong> Important, needs attention soon<br>
+                                        • <strong>Urgent:</strong> Critical, immediate attention required
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set minimum date to today
+        document.getElementById('due_date').min = new Date().toISOString().split('T')[0];
+
+        // Form validation
+        document.getElementById('addTaskForm').addEventListener('submit', function(e) {
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const dueDate = document.getElementById('due_date').value;
+            const priority = document.getElementById('priority').value;
+            const assignedTo = document.getElementById('assigned_to').value;
+
+            if (!title || !description || !dueDate || !priority || !assignedTo) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+                return false;
+            }
+
+            if (new Date(dueDate) < new Date()) {
+                e.preventDefault();
+                alert('Due date cannot be in the past.');
+                return false;
+            }
+        });
+
+        // Auto-save draft (optional feature)
+        let autoSaveTimer;
+        const form = document.getElementById('addTaskForm');
+        
+        form.addEventListener('input', function() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                const formData = new FormData(form);
+                localStorage.setItem('taskDraft', JSON.stringify({
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    due_date: formData.get('due_date'),
+                    priority: formData.get('priority'),
+                    assigned_to: formData.get('assigned_to')
+                }));
+            }, 2000);
+        });
+
+        // Load draft on page load
+        window.addEventListener('load', function() {
+            const draft = localStorage.getItem('taskDraft');
+            if (draft) {
+                const data = JSON.parse(draft);
+                if (data.title) document.getElementById('title').value = data.title;
+                if (data.description) document.getElementById('description').value = data.description;
+                if (data.due_date) document.getElementById('due_date').value = data.due_date;
+                if (data.priority) document.getElementById('priority').value = data.priority;
+                if (data.assigned_to) document.getElementById('assigned_to').value = data.assigned_to;
+            }
+        });
+
+        // Clear draft on successful submission
+        form.addEventListener('submit', function() {
+            localStorage.removeItem('taskDraft');
+        });
+    </script>
+</body>
+</html> 

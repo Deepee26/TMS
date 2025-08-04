@@ -1,16 +1,23 @@
 {
-  "name": "userauth",
+  "name": "task-management-system",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A comprehensive Task Management System built with Node.js, EJS, and PostgreSQL",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DechenPeldon/userAuth.git"
   },
-  "keywords": [],
+  "keywords": [
+    "task-management",
+    "nodejs",
+    "express",
+    "ejs",
+    "postgresql"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -26,6 +33,7 @@
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^7.0.3",
+    "pg": "^8.16.3",
     "pg-promise": "^11.14.0"
   },
   "devDependencies": {
